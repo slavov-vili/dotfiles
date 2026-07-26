@@ -4,42 +4,46 @@ vim.g.loaded_netrwPlugin = 1
 
 -- TODO: check plugin configs (pear-tree kinda slow, do I need sleuth?, configure fzf?)
 -- [Plugin setup]
+local GITHUB = 'https://github.com'
 vim.pack.add({
     -- Movement
-    { src = 'https://github.com/smoka7/hop.nvim' },
-    { src = 'https://github.com/echasnovski/mini.bracketed' },
+    { src = GITHUB .. '/smoka7/hop.nvim' },
+    { src = GITHUB .. '/echasnovski/mini.bracketed' },
     -- Editing
-    { src = 'https://github.com/tmsvg/pear-tree' },
-    { src = 'https://github.com/tpope/vim-surround' },
-    { src = 'https://github.com/echasnovski/mini.ai' },
+    { src = GITHUB .. '/tmsvg/pear-tree' },
+    { src = GITHUB .. '/tpope/vim-surround' },
+    { src = GITHUB .. '/echasnovski/mini.ai' },
     -- Completion
-    { src = 'https://github.com/hrsh7th/cmp-buffer' },
-    { src = 'https://github.com/hrsh7th/cmp-cmdline' },
-    { src = 'https://github.com/hrsh7th/cmp-nvim-lsp' },
-    { src = 'https://github.com/hrsh7th/cmp-path' },
-    { src = 'https://github.com/hrsh7th/nvim-cmp' },
+    { src = GITHUB .. '/hrsh7th/cmp-buffer' },
+    { src = GITHUB .. '/hrsh7th/cmp-cmdline' },
+    { src = GITHUB .. '/hrsh7th/cmp-nvim-lsp' },
+    { src = GITHUB .. '/hrsh7th/cmp-path' },
+    { src = GITHUB .. '/hrsh7th/nvim-cmp' },
     -- Files
-    { src = 'https://github.com/chrisgrieser/nvim-genghis' },
-    { src = 'https://github.com/nvim-tree/nvim-tree.lua' },
+    { src = GITHUB .. '/chrisgrieser/nvim-genghis' },
+    { src = GITHUB .. '/nvim-tree/nvim-tree.lua' },
     -- Git
-    { src = 'https://github.com/lewis6991/gitsigns.nvim' },
-    { src = 'https://github.com/tpope/vim-fugitive' },
+    { src = GITHUB .. '/lewis6991/gitsigns.nvim' },
+    { src = GITHUB .. '/tpope/vim-fugitive' },
     -- LSP
-    { src = 'https://github.com/williamboman/mason.nvim' },
-    { src = 'https://github.com/neovim/nvim-lspconfig' },
-    { src = 'https://github.com/williamboman/mason-lspconfig.nvim' },
+    { src = GITHUB .. '/williamboman/mason.nvim' },
+    { src = GITHUB .. '/neovim/nvim-lspconfig' },
+    { src = GITHUB .. '/williamboman/mason-lspconfig.nvim' },
+    -- Treesitter
+    { src = GITHUB .. '/nvim-treesitter/nvim-treesitter' },
+    { src = GITHUB .. '/nvim-treesitter/nvim-treesitter-textobjects' },
     -- Visual
-    { src = 'https://github.com/echasnovski/mini.animate' },
-    { src = 'https://github.com/echasnovski/mini.trailspace' },
-    { src = 'https://github.com/itchyny/lightline.vim' },
-    { src = 'https://github.com/luochen1990/rainbow' },
-    { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
-    { src = 'https://github.com/slavov-vili/nvim-scopemaster' },
+    { src = GITHUB .. '/echasnovski/mini.animate' },
+    { src = GITHUB .. '/echasnovski/mini.trailspace' },
+    { src = GITHUB .. '/itchyny/lightline.vim' },
+    { src = GITHUB .. '/luochen1990/rainbow' },
+    { src = GITHUB .. '/nvim-tree/nvim-web-devicons' },
+    { src = GITHUB .. '/slavov-vili/nvim-scopemaster' },
     -- Others
-    { src = 'https://github.com/ibhagwan/fzf-lua', version = 'main' },
-    { src = 'https://github.com/nvimtools/hydra.nvim' },
-    { src = 'https://github.com/tpope/vim-sleuth' },
-    { src = 'https://github.com/folke/which-key.nvim' },
+    { src = GITHUB .. '/ibhagwan/fzf-lua', version = 'main' },
+    { src = GITHUB .. '/nvimtools/hydra.nvim' },
+    { src = GITHUB .. '/tpope/vim-sleuth' },
+    { src = GITHUB .. '/folke/which-key.nvim' },
 })
 vim.cmd("packadd nvim.undotree")
 vim.cmd("packadd nvim.difftool")
@@ -75,7 +79,7 @@ vim.opt.fileencoding="utf-8"
 vim.opt.fileformat="unix"
 vim.opt.foldenable=true                    -- Enable folding
 vim.opt.foldcolumn="4"                     -- Width of column indicating folds
-vim.opt.foldlevelstart=42                  -- No closed folds at start
+vim.opt.foldlevelstart=99                  -- No closed folds at start
 vim.opt.foldmethod="indent"                -- Auto-folding of indented blocks
 vim.opt.foldnestmax=5                      -- Maximum number of nested folds
 vim.opt.helplang="en"                      -- Set help language to English

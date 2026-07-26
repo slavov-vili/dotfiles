@@ -124,14 +124,13 @@ vim.diagnostic.config({
 -- IMPORTANT: this has to be in this order and before lspconfig
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = {
-        'cssls',
-        'eslint',
-        'html',
-        'lua_ls',
-        'pylsp',
-        'ts_ls',
-    },
+    -- ensure_installed = {
+    --     'cssls',
+    --     'html',
+    --     'lua_ls',
+    --     'pylsp',
+    --     'ts_ls',
+    -- },
     handlers = {
         ['pylsp'] = function()
             vim.lsp.config('pylsp', {
