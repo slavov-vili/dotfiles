@@ -11,7 +11,19 @@ fzf.setup({
       horizontal = "right:55%",
       vertical = "down:50%",
     },
-  },  keymap = {
+  },
+  previewers = {
+    builtin = {
+      syntax = true,
+      extensions = {
+        ["jpg"] = { "viu", "-b" },
+        ["png"] = { "viu", "-b" },
+        ["svg"] = { "chafa", "{file}" },
+      },
+      ueberzug_scaler = "cover",
+    }
+  },
+  keymap = {
     builtin = {
       -- Finder Window Mechanics
       ["<C-z>"] = "hide",

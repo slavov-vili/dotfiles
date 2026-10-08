@@ -1,0 +1,18 @@
+[font]
+size = 12.0
+
+[font.normal]
+family = "Cousine Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "Cousine Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "Cousine Nerd Font"
+style = "Italic"
+
+[font.bold_italic]
+family = "Cousine Nerd Font"
+style = "Bold Italic"
