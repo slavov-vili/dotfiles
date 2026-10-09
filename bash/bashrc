@@ -73,6 +73,9 @@ export EDITOR="/usr/bin/vim"
 export QT_AUTO_SCREEN_FACTOR=1
 
 export PATH="$HOME/Scripts:$PATH"
+export PATH="/opt/idea-IU-253.30387.90/bin:$PATH"
+export ANDROID_HOME="/home/vilskin/Android/Sdk"
+export MANPAGER='vim +Man!'
 
 
 
@@ -82,27 +85,18 @@ export PATH="$HOME/Scripts:$PATH"
 alias ls='ls -F --color=always --group-directories-first'
 alias entar='tar -cvzf'
 alias untar='tar -xvzf'
-alias findkey='xev -event keyboard &'
-alias showmimes='cat /usr/share/applications/mimeinfo.cache'
 alias pacman='pacman --color always'
 alias vim='nvim'
 
-# Applications
-alias browse='firefox'
-alias ffx='firefox'
-alias gitfetch='onefetch'
+alias findkey='xev -event keyboard &'
+alias showmimes='cat /usr/share/applications/mimeinfo.cache'
 
-# Gotos
-alias gDocs='cd ~/Documents'
-alias gDown='cd ~/Downloads'
-alias gPics='cd ~/Pictures'
-alias gScrs='cd ~/Screenshots'
-
-# Common configs alias editbash='$EDITOR ~/.bashrc'
-alias reloadBash='source ~/.bashrc'
-alias editgit='$EDITOR ~/.gitconfig'
-alias editvim='$EDITOR ~/.config/nvim/init.vim'
+# Common configs
+alias editbash="$EDITOR ~/.bashrc"
+alias editgit="$EDITOR ~/.gitconfig"
 alias edithosts='sudoedit /etc/hosts'
+alias editvim="$EDITOR ~/.config/nvim/init.vim"
+alias reloadBash='source ~/.bashrc'
 
 # logout and lock require lightdm (or at least dm-tool)
 alias lock='light-locker-command -l'
@@ -110,7 +104,6 @@ alias off='poweroff'
 alias res='reboot'
 
 open () { xdg-open "$1" & };
-vimman () { man "$1" | vim -; }
 
 # Void stuff?
 complete -cf sudo
