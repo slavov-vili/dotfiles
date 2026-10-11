@@ -5,31 +5,49 @@
 
 
 
+# TODO: figure out why volume icon is launched twice...
+# TODO: figure out containers and marks
+# TODO: figure out how to control workspace and outputs
+# TODO: make a mode for moving workspaces around outputs
+# TODO: write scripts to start fun (terminal + browser) and start work (terminal, browser, ide, outlook, teams)
+
 # --------------------------------------
 # Variables
 # --------------------------------------
 
 set $mod Mod4
+set $alt Mod1
 
 # Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
+set $left  h
+set $down  j
+set $up    k
 set $right l
 
 # Names for workspaces
-set $ws1 "1: main"
-set $ws2 "2: terminal"
-set $ws3 "3: browser"
-set $ws4 "4: messages"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1_term    "1: Terminal"
+set $ws2_browser "2: Browser"
+set $ws3_ide     "3: IDE"
+set $ws4_message "4: Messages"
+set $ws5_misc    "5: Misc"
+set $ws6         "6"
+set $ws7         "7"
+set $ws8         "8"
+set $ws9         "9"
+set $ws10_vili   "10: Vili"
 
-set $term alacritty
+set $mode_default "default"
+
+set $mode_notify_warn   i3-nagbar -t warning -f 'pango:mono 12'
+set $mode_unnotify_warn pkill -f 'i3-nagbar.*-t warning'
+
+set $mode_notify_error   i3-nagbar -t error -f 'pango:mono 12'
+set $mode_unnotify_error pkill -f 'i3-nagbar.*-t error'
+
+set $launch_term    alacritty
+set $launch_browser firefox
+set $launch_fileexp nemo
+
 set $launcher --no-startup-id sh ~/.config/rofi/scripts/app_launcher.sh
 
 set $refresh_status_bar killall -SIGUSR1 polybar
@@ -66,9 +84,9 @@ tiling_drag modifier titlebar
 # --------------------------------------
 # Window assignments
 # --------------------------------------
-assign [class="^(?i).*term.*$"] $ws2
-assign [class="Alacritty"] $ws2
-assign [window_role="browser"] $ws3
+for_window [class="^(?i).*term.*$"] move container to workspace $ws1_term,    workspace $ws1_term
+for_window [class="Alacritty"]      move container to workspace $ws1_term,    workspace $ws1_term
+for_window [window_role="browser"]  move container to workspace $ws2_browser, workspace $ws2_browser
 
 
 
