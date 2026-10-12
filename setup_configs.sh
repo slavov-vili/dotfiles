@@ -1,14 +1,36 @@
-#!/bin/bash
+#!/bin/sh
 
-PROJECT_LIST_FILE="projects_to_setup.txt"
-DIR=$(pwd)
+# Import/Source
+. "./commons.sh"
 
-while read line; do
-    # TODO: maybe escape spaces in paths?
-    echo "Setting up ${line}:"
-    cd $line
-    sh ./setup.sh
-    cd $DIR
-    echo -ne "\n"
-done < $PROJECT_LIST_FILE
+# TODO: take an argument to determine the profile
+#       if a profile-specific file exists, then take that
+#       else - take the one without the profile
+
+dir="$(pwd)"
+profile="$1"
+
+projects_file=$(get_filename_for_profile "projects_to_setup" "txt" "$profile")
+
+while IFS= read -r line || [ -n "$line" ]; do
+  # Skip empty lines or commented lines (starting with #)
+  case "$line" in
+    ""|\#*) continue ;;
+  esac
+
+  if [ -d "$line" ]; then
+    echo "Setting up $line:"
+    cd "$line"
+
+    if [ -f 'setup.sh' ]; then
+      echo sh ./setup.sh
+    else
+      echo "Warning: No setup.sh found in '$line'!"
+    fi
+
+    cd $dir
+  else
+    echo "Warning: Directory '$line' does NOT exist!"
+  fi
+done < $projects_file
 

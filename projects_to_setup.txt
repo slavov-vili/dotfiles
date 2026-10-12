@@ -1,7 +1,12 @@
 Scripts
+alacritty
 bash
 git
 lightdm
 rofi
+dunst
+i3
+polybar
 tmux
 vim
+

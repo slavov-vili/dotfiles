@@ -1,0 +1,4 @@
+alacritty
+bash
+tmux
+vim
