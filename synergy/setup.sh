@@ -1,5 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/synergy.conf $HOME/.synergy.conf
+copy_items "$HOME" <<EOF
+synergy.conf:.synergy.conf
+EOF
+

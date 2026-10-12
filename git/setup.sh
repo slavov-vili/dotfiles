@@ -1,5 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/gitconfig $HOME/.gitconfig
+copy_items "$HOME" <<EOF
+gitconfig:.gitconfig
+EOF
+

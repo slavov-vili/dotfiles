@@ -1,10 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-DOCS_DIR=" $HOME/Documents"
-
-mkdir $DOCS_DIR
-
-cp --verbose --force --remove-destination $DIR/TODOS.md $DOCS_DIR/TODOS.md
+copy_items "$HOME/Documents" <<EOF
+TODOs.md
+EOF
 

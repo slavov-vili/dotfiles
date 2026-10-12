@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/config.ini $HOME/.config/polybar/
+copy_items "$HOME/.config/polybar" <<EOF
+config.ini
+EOF
 

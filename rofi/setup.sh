@@ -1,15 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-ROFI_DIR=$HOME/.config/rofi
+copy_items "$HOME/.config/rofi" <<EOF
+config.rasi
+keybinds.rasi
+widgets
+scripts
+themes
+EOF
 
-mkdir -p $ROFI_DIR
-
-cp --verbose --force --remove-destination $DIR/config.rasi $ROFI_DIR/config.rasi
-cp --verbose --force --remove-destination $DIR/keybinds.rasi $ROFI_DIR/keybinds.rasi
-
-echo 'Copying rofi directories'
-cp --force --remove-destination --recursive $DIR/widgets $ROFI_DIR
-cp --force --remove-destination --recursive $DIR/scripts $ROFI_DIR
-cp --force --remove-destination --recursive $DIR/themes  $ROFI_DIR
