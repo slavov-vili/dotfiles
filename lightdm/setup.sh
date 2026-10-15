@@ -5,4 +5,7 @@
 copy_items "$HOME" <<EOF
 xprofile:.xprofile
 EOF
-sudo cp --verbose --force --remove-destination $DIR/lightdm.conf /etc/lightdm/lightdm.conf
+
+copy_items "/etc/lightdm" 1 <<EOF
+lightdm.conf
+EOF

@@ -10,8 +10,13 @@ copy_items() {
   #       takes a destination and a mapping of names and overwrites the targets
   _src_dir="$(pwd)"
   _dest_dir="$1"
+  _needs_sudo=${2:-0}
 
-  mkdir -p "$_dest_dir"
+  _mkdir_cmd="mkdir -p \"$_dest_dir\""
+  if [ 1 -eq $_needs_sudo ]; then
+    _mkdir_cmd="sudo $_mkdir_cmd"
+  fi
+  eval "$_mkdir_cmd"
 
   while IFS= read -r _mapping || [ -n "$_mapping" ]; do
 
@@ -24,7 +29,7 @@ copy_items() {
             ;;
         *)
             _src="$_mapping"
-            _dest=''
+            _dest="$_mapping"
             ;;
     esac
 
@@ -39,14 +44,17 @@ copy_items() {
       fi
 
       _type="file"
-      _cp_args="--verbose --force --remove-destination"
+      _cp_cmd="cp --verbose --force --remove-destination"
       if [ -d "$_src_item" ]; then
         _type="directory"
-        _cp_args="$_cp_args --recursive"
+        _cp_cmd="$_cp_cmd --recursive"
       fi
 
+      if [ 1 -eq $_needs_sudo ]; then
+        _cp_cmd="sudo $_cp_cmd"
+      fi
       # echo "Copying $_type: $_src_item -> $_dest_path"
-      eval "cp $_cp_args -- $_src_item $_dest_path"
+      eval "$_cp_cmd -- $_src_item $_dest_path"
       echo "Done."
       echo ""
     done
