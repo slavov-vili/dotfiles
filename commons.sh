@@ -5,9 +5,34 @@
 
 
 # TODO: add support for sudo items (see lightdm)
+# Copies the files given as stdin to the directory given as argument, replacing
+# destination files if they exist.
+#
+# Input:
+# $1 = The destination directory
+# Stdin = A newline-separated string which represents the names/mappings of items
+# which should be copied.
+#
+# Example 1: Copy a file to a directory, keepings the same name.
+# copy_items "$HOME/.config/nvim" <<EOF
+# init.lua
+# EOF
+#
+# Example 2: Copy a file to a directory, renaming it.
+# copy_items "$HOME/.config/nvim" <<EOF
+# my_init.lua:init.lua
+# EOF
+#
+# Example 3: Copy a files to a directory using globs.
+# copy_items "$HOME/Scripts" <<EOF
+# *.sh
+# EOF
+#
+# Example 4: Copy a file to a directory which requires sudo rights.
+# copy_items "/etc" 1 <<EOF
+# init.lua
+# EOF
 copy_items() {
-  # TODO: write documentation
-  #       takes a destination and a mapping of names and overwrites the targets
   _src_dir="$(pwd)"
   _dest_dir="$1"
   _needs_sudo=${2:-0}
@@ -61,6 +86,12 @@ copy_items() {
   done
 }
 
+
+
+# Determines the name of a file given a profile
+# Returns:
+# <filename>_<profile>.<extension> If a file with the profile as suffix exists
+# <filename>.<extension> If no profile-specific version of the file exists
 get_filename_for_profile() {
   _filename_base="$1"
   _file_extension="$2"
