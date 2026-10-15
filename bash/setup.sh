@@ -1,7 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/bash_profile $HOME/.bash_profile
-cp --verbose --force --remove-destination $DIR/bashrc       $HOME/.bashrc
-cp --verbose --force --remove-destination $DIR/inputrc      $HOME/.inputrc
+copy_items "$HOME" <<EOF
+bash_profile:.bash_profile
+bashrc:.bashrc
+inputrc:.inputrc
+EOF

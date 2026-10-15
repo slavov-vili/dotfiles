@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/config $HOME/.config/gsimplecal/config
+copy_items "$HOME/.config/gsimplecal" <<EOF
+config
+EOF

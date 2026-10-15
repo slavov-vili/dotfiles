@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/picom.conf $HOME/.config/picom/picom.conf
-
+copy_items "$HOME/.config/picom" <<EOF
+picom.conf
+EOF

@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/volumeicon $HOME/.config/volumeicon/volumeicon
+copy_items "$HOME/.config/volumeicon" <<EOF
+volumeicon
+EOF

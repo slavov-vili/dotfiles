@@ -1,10 +1,8 @@
-DIR=$(pwd)
+#!/bin/sh
 
-SCRIPTS_DIR=$HOME/Scripts
+. "../commons.sh"
 
-mkdir -p $SCRIPTS_DIR
-
-cp --verbose --force --remove-destination $DIR/*.sh $SCRIPTS_DIR/
-
-rm $SCRIPTS_DIR/setup.sh
+copy_items "$HOME/Scripts" <<EOF
+*.sh
+EOF
 

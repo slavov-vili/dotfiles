@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/mimeapps.list $HOME/.config/mimeapps.list
+copy_items "$HOME/.config" <<EOF
+mimeapps.list
+EOF

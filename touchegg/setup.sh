@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/touchegg.conf $HOME/.config/touchegg/touchegg.conf
+copy_items "$HOME/.config/touchegg" <<EOF
+touchegg.conf
+EOF

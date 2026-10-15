@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/bash_profile $HOME/.bash_profile
+copy_items "$HOME" <<EOF
+bash_profile:.bash_profile
+EOF

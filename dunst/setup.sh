@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/dunstrc $HOME/.config/dunst/dunstrc
+copy_items "$HOME/.config/dunst" <<EOF
+dunstrc
+EOF
 

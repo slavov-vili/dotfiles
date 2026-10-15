@@ -1,7 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/config $HOME/.config/i3/config
-cp --verbose --force --remove-destination $DIR/*.conf $HOME/.config/i3/
+copy_items "$HOME/.config/i3" <<EOF
+config
+*.conf
+EOF
 

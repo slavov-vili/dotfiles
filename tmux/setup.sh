@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
-TMUX_DIR="$HOME/.config/tmux"
+. "../commons.sh"
 
-mkdir -p $TMUX_DIR
-cp --verbose --force --remove-destination $DIR/tmux.conf $TMUX_DIR/tmux.conf
+copy_items "$HOME/.config/tmux" <<EOF
+tmux.conf
+EOF

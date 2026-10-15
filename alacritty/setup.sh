@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/alacritty.toml $HOME/.config/alacritty/alacritty.toml
+copy_items "$HOME/.config/alacritty" <<EOF
+alacritty.toml
+EOF
 

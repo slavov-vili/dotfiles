@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/kitty.conf $HOME/.config/kitty/kitty.conf
+copy_items "$HOME/.config/kitty" <<EOF
+kitty.conf
+EOF

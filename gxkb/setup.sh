@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(pwd)
+. "../commons.sh"
 
-cp --verbose --force --remove-destination $DIR/gxkb.cfg $HOME/.config/gxkb/gxkb.cfg
+copy_items "$HOME/.config/gxkb" <<EOF
+gxkb.cfg
+EOF
