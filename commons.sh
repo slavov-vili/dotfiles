@@ -53,19 +53,19 @@ copy_items() {
             ;;
         *)
             _src="$_mapping"
-            _dest="$_mapping"
+            _dest=''
             ;;
     esac
-
-    _dest_path="$_dest_dir/$_dest"
 
     echo "Looking for entries of '$_src'"
     for _src_item in $(find . -mindepth 1 -name "$_src")
     do
+      _src_item=$(basename "$_src_item")
+      # echo "Source: '$_src_item'"
       # TODO: get src_item name for profile?
       # How do I do that if I already have the extension? split the item?
       if [ ! -e "$_src_item" ]; then
-        echo "Error: Source '$_src_item' does not exist, skipping!" >&2
+        echo "Warning: Source '$_src_item' does not exist, skipping!" >&2
         continue
       fi
 
@@ -79,6 +79,14 @@ copy_items() {
       if [ 1 -eq $_needs_sudo ]; then
         _cp_cmd="sudo $_cp_cmd"
       fi
+
+      _dest_item="$_dest"
+      if [ -z "$_dest" ]; then
+        _dest_item="$_src_item"
+      fi
+      _dest_path="$_dest_dir/$_dest_item"
+      # echo "Destination: $_dest_path"
+
       # echo "Copying $_type: $_src_item -> $_dest_path"
       eval "$_cp_cmd -- $_src_item $_dest_path"
       echo "Done."
