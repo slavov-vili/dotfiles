@@ -3,34 +3,32 @@
 # Import/Source
 . "./commons.sh"
 
-# TODO: take an argument to determine the profile
-#       if a profile-specific file exists, then take that
-#       else - take the one without the profile
+_dir="$(pwd)"
+_profile="$1"
 
-dir="$(pwd)"
-profile="$1"
+_projects_file=$(get_filename_for_profile "projects_to_setup" "txt" "$_profile")
 
-projects_file=$(get_filename_for_profile "projects_to_setup" "txt" "$profile")
-
-while IFS= read -r line || [ -n "$line" ]; do
+while IFS= read -r _line || [ -n "$_line" ]; do
   # Skip empty lines or commented lines (starting with #)
-  case "$line" in
+  case "$_line" in
     ""|\#*) continue ;;
   esac
 
-  if [ -d "$line" ]; then
-    echo "Setting up $line:"
-    cd "$line"
+  if [ -d "$_line" ]; then
+    echo "Setting up $_line:"
+    cd "$_line"
 
     if [ -f 'setup.sh' ]; then
-      echo sh ./setup.sh
+      sh ./setup.sh
     else
-      echo "Warning: No setup.sh found in '$line'!"
+      echo "Warning: No setup.sh found in '$_line'!"
     fi
 
-    cd $dir
+    # TODO: call extend.sh script if exists to enable stuff
+
+    cd $_dir
   else
-    echo "Warning: Directory '$line' does NOT exist!"
+    echo "Warning: Directory '$_line' does NOT exist!"
   fi
-done < $projects_file
+done < $_projects_file
 

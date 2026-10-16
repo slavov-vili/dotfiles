@@ -4,7 +4,6 @@
 
 
 
-# TODO: add support for sudo items (see lightdm)
 # Copies the files given as stdin to the directory given as argument, replacing
 # destination files if they exist.
 #
@@ -63,6 +62,8 @@ copy_items() {
     echo "Looking for entries of '$_src'"
     for _src_item in $(find . -mindepth 1 -name "$_src")
     do
+      # TODO: get src_item name for profile?
+      # How do I do that if I already have the extension? split the item?
       if [ ! -e "$_src_item" ]; then
         echo "Error: Source '$_src_item' does not exist, skipping!" >&2
         continue
