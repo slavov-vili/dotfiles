@@ -5,11 +5,14 @@
 
 
 
-# TODO: figure out why volume icon is launched twice...
+# TODO: Remove graying out when switching windows. Messes with multi-monitor setup. Maybe add a green border instead?
+# TODO: Add another bar to non-primary container
+# TODO: add everything that I do with hjkl, but also with arrow keys
+# TODO: Look at swapping containers & sticky option
 # TODO: figure out containers and marks
-# TODO: figure out how to control workspace and outputs
 # TODO: make a mode for moving workspaces around outputs
 # TODO: write scripts to start fun (terminal + browser) and start work (terminal, browser, ide, outlook, teams)
+# TODO: figure out why volume icon is launched twice...
 
 # --------------------------------------
 # Variables
