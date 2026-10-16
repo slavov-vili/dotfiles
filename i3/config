@@ -6,11 +6,10 @@
 
 
 # TODO: Remove graying out when switching windows. Messes with multi-monitor setup. Maybe add a green border instead?
-# TODO: Add another bar to non-primary container
 # TODO: add everything that I do with hjkl, but also with arrow keys
+# TODO: Add another bar to non-primary container
 # TODO: Look at swapping containers & sticky option
 # TODO: figure out containers and marks
-# TODO: make a mode for moving workspaces around outputs
 # TODO: write scripts to start fun (terminal + browser) and start work (terminal, browser, ide, outlook, teams)
 # TODO: figure out why volume icon is launched twice...
 
@@ -28,16 +27,16 @@ set $up    k
 set $right l
 
 # Names for workspaces
-set $ws1_term    "1: Terminal"
-set $ws2_browser "2: Browser"
-set $ws3_ide     "3: IDE"
-set $ws4_message "4: Messages"
-set $ws5_misc    "5: Misc"
-set $ws6         "6"
-set $ws7         "7"
-set $ws8         "8"
-set $ws9         "9"
-set $ws10_vili   "10: Vili"
+set $ws1  "1: Terminal"
+set $ws2  "2: Browser"
+set $ws3  "3: IDE"
+set $ws4  "4: Messages"
+set $ws5  "5: Misc"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8"
+set $ws9  "9"
+set $ws10 "10: Vili"
 
 set $mode_default "default"
 
@@ -87,9 +86,9 @@ tiling_drag modifier titlebar
 # --------------------------------------
 # Window assignments
 # --------------------------------------
-for_window [class="^(?i).*term.*$"] move container to workspace $ws1_term,    workspace $ws1_term
-for_window [class="Alacritty"]      move container to workspace $ws1_term,    workspace $ws1_term
-for_window [window_role="browser"]  move container to workspace $ws2_browser, workspace $ws2_browser
+for_window [class="^(?i).*term.*$"] move container to workspace $ws1, workspace $ws1
+for_window [class="Alacritty"]      move container to workspace $ws1, workspace $ws1
+for_window [window_role="browser"]  move container to workspace $ws2, workspace $ws2
 
 
 
