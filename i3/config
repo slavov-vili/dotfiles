@@ -5,11 +5,8 @@
 
 
 
-# TODO: Remove graying out when switching windows. Messes with multi-monitor setup. Maybe add a green border instead?
-# TODO: add everything that I do with hjkl, but also with arrow keys
-# TODO: Add another bar to non-primary container
-# TODO: Look at swapping containers & sticky option
 # TODO: figure out containers and marks
+# TODO: Look at swapping containers & sticky option
 # TODO: write scripts to start fun (terminal + browser) and start work (terminal, browser, ide, outlook, teams)
 # TODO: figure out why volume icon is launched twice...
 
@@ -71,9 +68,9 @@ gaps outer 5
 for_window [all] title_window_icon on
 for_window [all] title_window_icon padding 1px
 
-default_border normal 0
-default_floating_border normal 1
-hide_edge_borders smart
+default_border normal 2
+default_floating_border normal 2
+# hide_edge_borders smart
 
 focus_follows_mouse no
 
@@ -81,14 +78,27 @@ focus_follows_mouse no
 # or left-clicking anywhere into the window while holding the floating modifier.
 tiling_drag modifier titlebar
 
+# focus same workspace to jump back to where you came from
+workspace_auto_back_and_forth yes
+
+# Leave urgency hints a bit after focusing window. Might be helpful with multi-monitor
+force_display_urgency_hint 500 ms
+
 
 
 # --------------------------------------
-# Window assignments
+# Window-specific settings
 # --------------------------------------
+
+# Open in specific workspace
 for_window [class="^(?i).*term.*$"] move container to workspace $ws1, workspace $ws1
 for_window [class="Alacritty"]      move container to workspace $ws1, workspace $ws1
 for_window [window_role="browser"]  move container to workspace $ws2, workspace $ws2
+
+# Always float
+for_window [instance="git-gui"] floating enable
+for_window [title="nagbar-cmd.*"] floating enable
+# for_window [class="Git-gui"] floating enable
 
 
 
@@ -109,7 +119,7 @@ include keybinds.conf
 # --------------------------------------
 # Bar
 # --------------------------------------
-exec --no-startup-id "polybar"
+# See executions
 # bar {
 #     position top
 #     status_command i3status
