@@ -128,7 +128,7 @@ map("t", fzf.tabs,           { desc = "Search Tabs" })
 
 -- Search
 map("/", fzf.grep_curbuf,    { desc = "Search Grep Current Buffer" })
-map("G", fzf.grep,           { desc = "Search Grep" })
+map("2", fzf.grep,           { desc = "Search Grep" })
 map("L", fzf.grep_last,      { desc = "Search Repeat Last Grep" })
 map("Q", fzf.grep_quickfix,  { desc = "Search Grep Quickfix" })
 map("W", fzf.grep_cWORD,     { desc = "Search Grep WORD Under Cursor" })
@@ -143,12 +143,12 @@ map("g", fzf.grep_visual,    { desc = "Search Grep Visual Selection" }, "v")
 
 
 -- Git
-map("gS", fzf.git_stash,    { desc = "Search Git Stash" })
-map("gb", fzf.git_branches, { desc = "Search Git Branches" })
-map("gc", fzf.git_commits,  { desc = "Search Git Commits" })
-map("gd", fzf.git_diff,     { desc = "Search Git Diff" })
-map("gs", fzf.git_status,   { desc = "Search Git Status" })
-map("gt", fzf.git_tags,     { desc = "Search Git Tags" })
+map("GS", fzf.git_stash,    { desc = "Search Git Stash" })
+map("Gb", fzf.git_branches, { desc = "Search Git Branches" })
+map("Gc", fzf.git_commits,  { desc = "Search Git Commits" })
+map("Gd", fzf.git_diff,     { desc = "Search Git Diff" })
+map("Gs", fzf.git_status,   { desc = "Search Git Status" })
+map("Gt", fzf.git_tags,     { desc = "Search Git Tags" })
 
 
 
