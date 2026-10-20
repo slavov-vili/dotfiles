@@ -24,7 +24,7 @@ function buildEntries(){
 
 # $1 = a string of the entries which should be passed to rofi
 function launchMenu(){
-    echo $( echo -en "$1" | rofi ${ROFI_OPTIONS[@]} -theme "$THEME" -theme-str "$THEME_CHANGES" -p "$PROMPT" -format $RESULT_FORMAT )
+    echo $( echo -en $1 | rofi ${ROFI_OPTIONS[@]} -theme "$THEME" -theme-str "$THEME_CHANGES" -p "$PROMPT" -format $RESULT_FORMAT)
 };
 
 
