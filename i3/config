@@ -5,9 +5,10 @@
 
 
 
+# TODO: replace dunst with something nicer
 # TODO: figure out containers and marks
 # TODO: Look at swapping containers & sticky option
-# TODO: write scripts to start fun (terminal + browser) and start work (terminal, browser, ide, outlook, teams)
+# TODO: figure out why reconfigure and reload mess up the window layout? Maybe figure out a script for fixing it?
 # TODO: figure out why volume icon is launched twice...
 
 # --------------------------------------
@@ -54,8 +55,6 @@ set $refresh_status_bar killall -SIGUSR1 polybar
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-
-
 # --------------------------------------
 # Options
 # --------------------------------------
@@ -79,12 +78,10 @@ focus_follows_mouse no
 tiling_drag modifier titlebar
 
 # focus same workspace to jump back to where you came from
-workspace_auto_back_and_forth yes
+# workspace_auto_back_and_forth yes
 
 # Leave urgency hints a bit after focusing window. Might be helpful with multi-monitor
 force_display_urgency_hint 500 ms
-
-
 
 # --------------------------------------
 # Window-specific settings
@@ -101,20 +98,20 @@ for_window [title="nagbar-cmd.*"] floating enable
 # for_window [class="Git-gui"] floating enable
 
 
-
 # --------------------------------------
 # Theme
 # --------------------------------------
 include theme.conf
-
-
 
 # --------------------------------------
 # Key bindings
 # --------------------------------------
 include keybinds.conf
 
-
+# --------------------------------------
+# Executions
+# --------------------------------------
+include executions.conf
 
 # --------------------------------------
 # Bar
@@ -126,10 +123,3 @@ include keybinds.conf
 #
 #     mode dock
 # }
-
-
-
-# --------------------------------------
-# Executions
-# --------------------------------------
-include executions.conf
