@@ -2,7 +2,9 @@
 
 . "../commons.sh"
 
-copy_items "$HOME/Scripts" <<EOF
+_profile="$1"
+
+copy_items "$HOME/Scripts" "$_profile" <<EOF
 *.sh
 EOF
 

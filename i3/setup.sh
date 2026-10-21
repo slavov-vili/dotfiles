@@ -2,7 +2,9 @@
 
 . "../commons.sh"
 
-copy_items "$HOME/.config/i3" <<EOF
+_profile="$1"
+
+copy_items "$HOME/.config/i3" "$_profile" <<EOF
 config
 *.conf
 EOF
