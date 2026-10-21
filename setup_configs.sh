@@ -6,7 +6,7 @@
 _dir="$(pwd)"
 _profile="$1"
 
-_projects_file=$(get_filename_for_profile "projects_to_setup" "txt" "$_profile")
+_projects_file=$(get_filename_for_profile "projects_to_setup.txt" "$_profile")
 
 while IFS= read -r _line || [ -n "$_line" ]; do
   # Skip empty lines or commented lines (starting with #)

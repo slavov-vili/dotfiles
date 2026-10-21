@@ -9,6 +9,8 @@
 #
 # Input:
 # $1 = The destination directory
+# $2 = A profile name (used to identify profile-specific files)
+# $3 = 0|1: Whether to use sudo when copying
 # Stdin = A newline-separated string which represents the names/mappings of items
 # which should be copied.
 #
@@ -31,10 +33,17 @@
 # copy_items "/etc" 1 <<EOF
 # init.lua
 # EOF
+#
+# Example 5: Copy a profile-specific file instead of the profile-less one.
+# Result: copies my_init_work.lua to the target directory as init.lua
+# copy_items "$HOME/.config/nvim" "work" <<EOF
+# my_init.lua:init.lua
+# EOF
 copy_items() {
   _src_dir="$(pwd)"
   _dest_dir="$1"
-  _needs_sudo=${2:-0}
+  _profile="$2"
+  _needs_sudo=${3:-0}
 
   _mkdir_cmd="mkdir -p \"$_dest_dir\""
   if [ 1 -eq $_needs_sudo ]; then
@@ -58,12 +67,14 @@ copy_items() {
     esac
 
     echo "Looking for entries of '$_src'"
-    for _src_item in $(find . -mindepth 1 -name "$_src")
+    for _src_item_orig in $(find . -mindepth 1 -name "$_src")
     do
-      _src_item=$(basename "$_src_item")
+      _src_item=$(get_filename_for_profile "$_src_item_orig" "$_profile")
+      if [ ! -e "$_src_item" ]; then
+        _src_item=$(basename "$_src_item")
+      fi
       # echo "Source: '$_src_item'"
-      # TODO: get src_item name for profile?
-      # How do I do that if I already have the extension? split the item?
+
       if [ ! -e "$_src_item" ]; then
         echo "Warning: Source '$_src_item' does not exist, skipping!" >&2
         continue
@@ -80,11 +91,14 @@ copy_items() {
         _cp_cmd="sudo $_cp_cmd"
       fi
 
-      _dest_item="$_dest"
-      if [ -z "$_dest" ]; then
-        _dest_item="$_src_item"
+      _dest_path="$_dest_dir"
+      if [ $_type = "file" ]; then
+        _dest_item="$_dest"
+        if [ -z "$_dest" ]; then
+          _dest_item="$_src_item_orig"
+        fi
+        _dest_path="$_dest_dir/$_dest_item"
       fi
-      _dest_path="$_dest_dir/$_dest_item"
       # echo "Destination: $_dest_path"
 
       # echo "Copying $_type: $_src_item -> $_dest_path"
@@ -102,14 +116,36 @@ copy_items() {
 # <filename>_<profile>.<extension> If a file with the profile as suffix exists
 # <filename>.<extension> If no profile-specific version of the file exists
 get_filename_for_profile() {
-  _filename_base="$1"
-  _file_extension="$2"
-  _profile="$3"
+  _filename_orig="$1"
+  _profile="$2"
 
-  filename="${_filename_base}_${_profile}.${_file_extension}"
-  if [ ! -f "$filename" ]; then
-    filename="${_filename_base}.${_file_extension}"
+  if [ -z "$_profile" ]; then
+    echo "$_filename_orig"
+    return 0
   fi
-  echo "$filename"
+
+  case "$_filename_orig" in
+      +.*)
+          _filename_base="${_filename_orig%.*}"
+          _file_extension="${_filename_orig##*.}"
+          ;;
+      *)
+          _filename_base="$_filename_orig"
+          _file_extension=""
+          ;;
+  esac
+  # echo "Filename base: $_filename_base"
+  # echo "File extension: $_file_extension"
+
+  _filename_result="${_filename_base}_${_profile}"
+  if [ ! -z "$_file_extension" ]; then
+    _filename_result="${_filename_result}.${_file_extension}"
+  fi
+
+  if [ ! -f "$_filename_result" ]; then
+    _filename_result="$_filename_orig"
+  fi
+  echo "$_filename_result"
+  return 0
 }
 
