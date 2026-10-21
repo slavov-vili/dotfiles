@@ -2,4 +2,8 @@
 
 ## TODO: describe how to install individual stuff/a list of stuff
 
-## TODO: Split configurations in home/work. Define a profile system. Calling setup with a profile installs relevant software and its configurations
+## TODO: mention, that NOT all projects support profiles (I'm lazy)
+
+# TODO: add support for fetch (from dest)
+
+# TODO: move all executable scripts in appropriate folders instead of .config?
