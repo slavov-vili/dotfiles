@@ -5,11 +5,8 @@
 
 
 
-# TODO: replace dunst with something nicer
 # TODO: figure out containers and marks
 # TODO: Look at swapping containers & sticky option
-# TODO: figure out why reconfigure and reload mess up the window layout? Maybe figure out a script for fixing it?
-# TODO: figure out why volume icon is launched twice...
 
 # --------------------------------------
 # Variables
@@ -18,13 +15,13 @@
 set $mod Mod4
 set $alt Mod1
 
-# Home row direction keys, like vim
+# Direction keys
 set $left  h
 set $down  j
 set $up    k
 set $right l
 
-# Names for workspaces
+# Workspace names
 set $ws1  "1: Terminal"
 set $ws2  "2: Browser"
 set $ws3  "3: IDE"
@@ -48,7 +45,7 @@ set $launch_term    alacritty
 set $launch_browser firefox
 set $launch_fileexp nemo
 
-set $launcher --no-startup-id sh ~/.config/rofi/scripts/app_launcher.sh
+set $launcher sh ~/.config/rofi/scripts/app_launcher.sh
 
 set $refresh_status_bar killall -SIGUSR1 polybar
 
@@ -93,9 +90,9 @@ for_window [class="Alacritty"]      move container to workspace $ws1, workspace 
 for_window [window_role="browser"]  move container to workspace $ws2, workspace $ws2
 
 # Always float
-for_window [instance="git-gui"] floating enable
+for_window [class="Git-gui"] floating enable
+for_window [class="Gitk"] floating enable
 for_window [title="nagbar-cmd.*"] floating enable
-# for_window [class="Git-gui"] floating enable
 
 
 # --------------------------------------
