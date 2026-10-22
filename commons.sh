@@ -1,5 +1,3 @@
-#!/bin/sh
-
 # This file only contains helper functions for other shell scripts in the repo
 
 
@@ -24,7 +22,7 @@
 # my_init.lua:init.lua
 # EOF
 #
-# Example 3: Copy a files to a directory using globs.
+# Example 3: Copy files to a directory using globs.
 # copy_items "$HOME/Scripts" <<EOF
 # *.sh
 # EOF
@@ -46,15 +44,18 @@ copy_items() {
   _needs_sudo=${3:-0}
 
   _mkdir_cmd="mkdir -p \"$_dest_dir\""
+
+  # Handle copying to restricted directories
   if [ 1 -eq $_needs_sudo ]; then
     _mkdir_cmd="sudo $_mkdir_cmd"
   fi
   eval "$_mkdir_cmd"
 
   while IFS= read -r _mapping || [ -n "$_mapping" ]; do
-
     _src=''
     _dest=''
+
+    # Handle name and mapping input lines
     case "$_mapping" in
         *:*)
             _src="${_mapping%%:*}"
@@ -66,13 +67,16 @@ copy_items() {
             ;;
     esac
 
+    # Handle input lines, which contain globs
     echo "Looking for entries of '$_src'"
     for _src_item_orig in $(find . -mindepth 1 -name "$_src")
     do
+      # Handle profile-specific items
       _src_item=$(get_filename_for_profile "$_src_item_orig" "$_profile")
-      if [ ! -e "$_src_item" ]; then
-        _src_item=$(basename "$_src_item")
-      fi
+      # TODO: remove this, because it seems useless. Buf if something breaks - look here
+      # if [ ! -e "$_src_item" ]; then
+      #   _src_item=$(basename "$_src_item")
+      # fi
       # echo "Source: '$_src_item'"
 
       if [ ! -e "$_src_item" ]; then
@@ -82,21 +86,28 @@ copy_items() {
 
       _type="file"
       _cp_cmd="cp --verbose --force --remove-destination"
+      # Handle copying of directories
       if [ -d "$_src_item" ]; then
         _type="directory"
         _cp_cmd="$_cp_cmd --recursive"
       fi
 
+      # Handle copying to restricted directories
       if [ 1 -eq $_needs_sudo ]; then
         _cp_cmd="sudo $_cp_cmd"
       fi
 
+      # Handle copying of directories (destination item has to be target directory, else next run will make <src_dir>/<src_dir>...
       _dest_path="$_dest_dir"
       if [ $_type = "file" ]; then
+        # Default: assume mapping line
         _dest_item="$_dest"
-        if [ -z "$_dest" ]; then
+
+        # Not mapping, then take original name
+        if [ -z "$_dest_item" ]; then
           _dest_item="$_src_item_orig"
         fi
+
         _dest_path="$_dest_dir/$_dest_item"
       fi
       # echo "Destination: $_dest_path"
