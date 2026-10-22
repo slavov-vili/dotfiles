@@ -135,12 +135,15 @@ get_filename_for_profile() {
     return 0
   fi
 
+  # echo "Filename original: $_filename_orig"
   case "$_filename_orig" in
-      +.*)
+      ?*.*)
+          # echo "Has extension!"
           _filename_base="${_filename_orig%.*}"
           _file_extension="${_filename_orig##*.}"
           ;;
       *)
+          # echo "NO extension!"
           _filename_base="$_filename_orig"
           _file_extension=""
           ;;

@@ -18,17 +18,16 @@ while IFS= read -r _line || [ -n "$_line" ]; do
     echo "Setting up $_line:"
     cd "$_line"
 
-    if [ -f 'setup.sh' ]; then
-      sh ./setup.sh
+    _setup_script=$(get_filename_for_profile "setup.sh" "$_profile")
+    if [ -f "$_setup_script" ]; then
+      sh "./$_setup_script"
     else
-      echo "Warning: No setup.sh found in '$_line'!"
+      echo "Warning: No setup script found in '$_line'!"
     fi
-
-    # TODO: call extend.sh script if exists to enable stuff
 
     cd $_dir
   else
     echo "Warning: Directory '$_line' does NOT exist!"
   fi
-done < $_projects_file
+done < "$_projects_file"
 
