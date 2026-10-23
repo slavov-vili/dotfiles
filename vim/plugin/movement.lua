@@ -50,10 +50,10 @@ map('A', hop.hint_anywhere, { desc = "Jump anywhere" })
 -- Hop to character
 map('f', current_line(hop.hint_char1), { desc = "Jump to char in current line" })
 map('F', hop.hint_char1, { desc = "Jump to char anywhere" })
-map('f', multi_windows(hop.hint_char1), { desc = "Jump to char anywhere (multi_windows)" })
+map('c', multi_windows(hop.hint_char1), { desc = "Jump to char anywhere (multi_windows)" })
 map('t', current_line(hop.hint_char2), { desc = "Jump to 2 chars in current line" })
 map('T', hop.hint_char2, { desc = "Jump to 2 chars anywhere" })
-map('t', multi_windows(hop.hint_char2), { desc = "Jump to 2 chars anywhere (multi_windows)" })
+map('C', multi_windows(hop.hint_char2), { desc = "Jump to 2 chars anywhere (multi_windows)" })
 -- Hop to word
 map('w', current_line(hop.hint_words), { desc = "Jump to word in current line" })
 map('W', hop.hint_words, { desc = "Jump to word anywhere" })
@@ -64,8 +64,8 @@ map('?', multi_windows(hop.hint_patterns), { desc = "Jump to search pattern (mul
 -- Hop to line
 map('l', hop.hint_lines_skip_whitespace, { desc = "Jump to line (skip_whitespace)" })
 map('L', multi_windows(hop.hint_lines_skip_whitespace), { desc = "Jump to line (skip_whitespace, multi_windows)" })
-map('<space>', hop.hint_lines, { desc = "Jump to line" })
-map('<space>', multi_windows(hop.hint_lines), { desc = "Jump to line (multi_windows)" })
+map('0', hop.hint_lines, { desc = "Jump to line" })
+map(')', multi_windows(hop.hint_lines), { desc = "Jump to line (multi_windows)" })
 map('v', hop.hint_vertical, { desc = "Jump vertically" })
 map('V', multi_windows(hop.hint_vertical), { desc = "Jump vertically (multi_windows)" })
 
