@@ -1,7 +1,7 @@
 # i3 config file (v4)
 # Based on the default config found at /etc/i3/config
 #
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+# See https://i3wm.org/docs/userguide.html for a complete reference!
 
 
 
@@ -21,6 +21,7 @@ set $down  j
 set $up    k
 set $right l
 
+# TODO: put some markup in terminal names for fun? (see <span in documentation)
 # Workspace names
 set $ws1  "1: Terminal"
 set $ws2  "2: Browser"
@@ -58,11 +59,11 @@ floating_modifier $mod
 
 # Inner = between windows
 # Outer = between windows and screen edge
-gaps inner 5
-gaps outer 5
+gaps inner 8
+gaps outer 0
 
 for_window [all] title_window_icon on
-for_window [all] title_window_icon padding 1px
+for_window [all] title_window_icon padding 3px
 
 default_border normal 2
 default_floating_border normal 2

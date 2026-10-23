@@ -2,6 +2,16 @@
 
 
 
+# TODOs
+- [ ] Add rofi configuration for i3 (dmenu-style)
+- [ ] Add examples of how different tools can be customized: bash, git, i3 includes?
+- [ ] Prevent scripts from blindly overwriting stuff
+    * Option 1: Create backups before copying files
+    * Option 2: Add support for fetch (from dest) to keep the files here up to date
+- [ ] Move tool-specific executable files in some bin/ folder? Just .config/ seems weird.
+
+
+
 # Setup script mechanism
 This is a set of shell scripts, which makes it easier to:
 1. Configure multiple tools at once.
@@ -87,10 +97,3 @@ other scripts.
     - If an input line is in the form of a mapping (`<src_name>:<dest_name>`), the file is copied under the `<dest_name>` name.
     - If an input line contains a glob pattern (e.g. `*` wildcards), all files which match the pattern are copied. The function just uses `find` to get its items.
     - Using a glob pattern AND a mapping line will copy each file matched by the glob to the same destination file, overwriting it each time.
-
-# TODOs
-- [ ] Add examples of how different tools can be customized: bash, git, i3 includes?
-- [ ] Prevent scripts from blindly overwriting stuff
-    * Option 1: Create backups before copying files
-    * Option 2: Add support for fetch (from dest) to keep the files here up to date
-- [ ] Move tool-specific executable files in some bin/ folder? Just .config/ seems weird.
