@@ -5,15 +5,13 @@
 
 
 
-# TODO: figure out containers and marks
-# TODO: Look at swapping containers & sticky option
-
 # --------------------------------------
 # Variables
 # --------------------------------------
 
 set $mod Mod4
 set $alt Mod1
+set $default_title_format %title
 
 # Direction keys
 set $left  h
