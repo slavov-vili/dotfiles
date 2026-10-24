@@ -19,7 +19,6 @@ set $down  j
 set $up    k
 set $right l
 
-# TODO: put some markup in terminal names for fun? (see <span in documentation)
 # Workspace names
 set $ws1  "1: Terminal"
 set $ws2  "2: Browser"
@@ -60,6 +59,7 @@ floating_modifier $mod
 gaps inner 8
 gaps outer 0
 
+for_window [all] title_format      "$default_title_format"
 for_window [all] title_window_icon on
 for_window [all] title_window_icon padding 3px
 
@@ -82,15 +82,16 @@ force_display_urgency_hint 500 ms
 # --------------------------------------
 # Window-specific settings
 # --------------------------------------
+set $match_terminal class="Alacritty|(?i).*term.*"
+set $match_browser  window_role="browser"
+set $match_fileexp  class="(?i)nemo"
 
 # Open in specific workspace
-for_window [class="^(?i).*term.*$"] move container to workspace $ws1, workspace $ws1
-for_window [class="Alacritty"]      move container to workspace $ws1, workspace $ws1
-for_window [window_role="browser"]  move container to workspace $ws2, workspace $ws2
+for_window [$match_terminal] move container to workspace $ws1, workspace $ws1
+for_window [$match_browser]  move container to workspace $ws2, workspace $ws2
 
 # Always float
-for_window [class="Git-gui"] floating enable
-for_window [class="Gitk"] floating enable
+for_window [class="(?i)git.*"] floating enable
 for_window [title="nagbar-cmd.*"] floating enable
 
 
