@@ -12,7 +12,7 @@
 # Stdin = A newline-separated string which represents the names/mappings of items
 # which should be copied.
 #
-# Example 1: Copy a file to a directory, keepings the same name.
+# Example 1: Copy a file to a directory, keeping the same name.
 # copy_items "$HOME/.config/nvim" <<EOF
 # init.lua
 # EOF
@@ -38,45 +38,63 @@
 # my_init.lua:init.lua
 # EOF
 copy_items() {
-  _src_dir="$(pwd)"
-  _dest_dir="$1"
+  _src_dir=${1:-"$(pwd)"}
+  _dest_dir="$HOME/.config/$(basename $(pwd))"
   _profile="$2"
-  _needs_sudo=${3:-0}
+  _reversed=${3:-0}
 
-  _mkdir_cmd="mkdir -p \"$_dest_dir\""
+  _src_dir_prefix="src_dir: "
+  _dest_dir_prefix="dest_dir: "
 
-  # Handle copying to restricted directories
-  if [ 1 -eq $_needs_sudo ]; then
-    _mkdir_cmd="sudo $_mkdir_cmd"
+  if [ 1 -eq $_reversed ]; then
+    # Swap default values
+    _temp="$_src_dir"
+    _src_dir="$_dest_dir"
+    _dest_dir="$_temp"
+
+    # Swap future values
+    _temp="$_src_dir_prefix"
+    _src_dir_prefix="$_dest_dir_prefix"
+    _dest_dir_prefix="$_temp"
   fi
-  eval "$_mkdir_cmd"
 
-  while IFS= read -r _mapping || [ -n "$_mapping" ]; do
-    _src=''
-    _dest=''
+  while IFS= read -r _file_mapping || [ -n "$_file_mapping" ]; do
+    # Default case: line = filename
+    _src_pattern="$_file_mapping"
+    # Dest might be changed later in case of lines which contain globs
+    _dest_pattern=''
 
-    # Handle name and mapping input lines
-    case "$_mapping" in
-        *:*)
-            _src="${_mapping%%:*}"
-            _dest="${_mapping#*:}"
-            ;;
-        *)
-            _src="$_mapping"
-            _dest=''
-            ;;
+    case "$_file_mapping" in
+      "$_src_dir_prefix"*)
+        _src_dir="$(get_dir_from_mapping "$_src_dir_prefix" "$_file_mapping")"
+        if [ ! -e "$_src_dir" ]; then
+          echo "Source directory '$_src_dir' doesn't exist. Quitting!"
+          exit 1
+        fi
+        continue
+        ;;
+
+      "$_dest_dir_prefix"*)
+        _dest_dir="$(get_dir_from_mapping "$_dest_dir_prefix" "$_file_mapping")"
+        make_dir "$_dest_dir"
+        echo "Ensured destination directory '$_dest_dir' exists."
+        continue
+        ;;
+
+      # Line = mapping "src_name:dest_name"
+      *:*)
+        _src_pattern="${_file_mapping%%:*}"
+        _dest_pattern="${_file_mapping#*:}"
+        ;;
     esac
 
-    # Handle input lines, which contain globs
-    echo "Looking for entries of '$_src'"
-    for _src_item_orig in $(find . -mindepth 1 -name "$_src")
+    # Allows lines with globs
+    echo "Looking for entries of '$_src_pattern' in '$_src_dir/'"
+    # mindepth disregards the dir itself
+    for _src_item_orig in $(find "$_src_dir" -mindepth 1 -name "$_src_pattern")
     do
       # Handle profile-specific items
-      _src_item=$(get_filename_for_profile "$_src_item_orig" "$_profile")
-      # TODO: remove this, because it seems useless. Buf if something breaks - look here
-      # if [ ! -e "$_src_item" ]; then
-      #   _src_item=$(basename "$_src_item")
-      # fi
+      _src_item="$(get_filename_for_profile "$_src_item_orig" "$_profile")"
       # echo "Source: '$_src_item'"
 
       if [ ! -e "$_src_item" ]; then
@@ -86,32 +104,22 @@ copy_items() {
 
       _type="file"
       _cp_cmd="cp --verbose --force --remove-destination"
-      # Handle copying of directories
       if [ -d "$_src_item" ]; then
         _type="directory"
         _cp_cmd="$_cp_cmd --recursive"
       fi
 
-      # Handle copying to restricted directories
-      if [ 1 -eq $_needs_sudo ]; then
-        _cp_cmd="sudo $_cp_cmd"
-      fi
-
-      # Handle copying of directories (destination item has to be target directory, else next run will make <src_dir>/<src_dir>...
       _dest_path="$_dest_dir"
       if [ $_type = "file" ]; then
-        # Default: assume mapping line
-        _dest_item="$_dest"
-
-        # Not mapping, then take original name
-        if [ -z "$_dest_item" ]; then
-          _dest_item="$_src_item_orig"
+        # Not mapping, so take original filename
+        if [ -z "$_dest_pattern" ]; then
+          _dest_pattern="$(basename "$_src_item_orig")"
         fi
 
-        _dest_path="$_dest_dir/$_dest_item"
+        _dest_path="$_dest_dir/$_dest_pattern"
       fi
-      # echo "Destination: $_dest_path"
 
+      _cp_cmd="$(get_command_for_filepath "$_cp_cmd" "$_dest_path")"
       # echo "Copying $_type: $_src_item -> $_dest_path"
       eval "$_cp_cmd -- $_src_item $_dest_path"
       echo "Done."
@@ -163,3 +171,40 @@ get_filename_for_profile() {
   return 0
 }
 
+
+
+get_dir_from_mapping() {
+  _dir_prefix="$1"
+  _mapping_line="$2"
+
+  _resolved_dir="$(echo "$_mapping_line" | cut -c1-${#_dir_prefix} --complement)"
+  eval echo "$_resolved_dir"
+}
+
+
+
+make_dir() {
+  _dir_to_make="$1"
+  _mkdir_cmd="$(get_command_for_filepath "mkdir -p \"$_dir_to_make\"")"
+  eval "$_mkdir_cmd"
+}
+
+
+
+get_command_for_filepath() {
+  _cmd="$1"
+  _filepath="$2"
+
+  # Check if needs sudo
+  case "$_filepath" in
+        /home*)
+            echo "$_cmd"
+            ;;
+        /*)
+            echo "sudo $_cmd"
+            ;;
+        *)
+            echo "$_cmd"
+            ;;
+    esac
+}
