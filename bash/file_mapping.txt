@@ -1,0 +1,4 @@
+dest_dir: $HOME
+bash_profile:.bash_profile
+bashrc:.bashrc
+inputrc:.inputrc
